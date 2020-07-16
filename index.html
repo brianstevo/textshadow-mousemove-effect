@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+  <style>
+    html {
+      color: black;
+      font-family: sans-serif;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    }
+
+    h1 {
+      text-shadow: 10px 10px 0 rgba(0, 0, 0, .3);
+      font-size: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+  <script>
+    const hero = document.querySelector('.hero');
+    const textH1 = hero.querySelector('h1');
+
+    function shadow(e) {
+      // const width = hero.offsetWidth;
+      // const height = hero.offsetHeight;
+      const walk = 100; //100px range of shadow
+      const {
+        offsetWidth: width,
+        offsetHeight: height
+      } = hero;
+      // console.log(width, height);
+
+      let {
+        offsetX: x,
+        offsetY: y
+      } = e;
+      // console.log(x, y);
+      if (this !== e.target) {
+        x = x + e.target.offsetLeft;
+        y = y + e.target.offsetTop;
+      }
+      // console.log(x, y);
+      const xwalk = Math.floor((x / width * walk) - (walk / 2));
+      const ywalk = Math.floor((y / height * walk) - (walk / 2));
+      console.log(xwalk, ywalk);
+      textH1.style.textShadow = `${xwalk}px ${ywalk}px 0 rgba(0,0,0,.3),
+        ${xwalk*-1}px ${ywalk*-1}px 0 rgba(0,255,0,.7)`;
+    }
+
+    hero.addEventListener('mousemove', shadow);
+  </script>
+</body>
+
+</html>
